@@ -17,7 +17,7 @@ namespace GamesCollection.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Users()
         {
-            this.Games = new HashSet<Games>();
+            this.UsersGames = new HashSet<UsersGames>();
         }
     
         public int ID { get; set; }
@@ -31,6 +31,6 @@ namespace GamesCollection.Models
     
         public virtual Roles Roles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Games> Games { get; set; }
+        public virtual ICollection<UsersGames> UsersGames { get; set; }
     }
 }

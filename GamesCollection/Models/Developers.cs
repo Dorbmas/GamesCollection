@@ -17,13 +17,13 @@ namespace GamesCollection.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Developers()
         {
-            this.Games = new HashSet<Games>();
+            this.GamesDevelopers = new HashSet<GamesDevelopers>();
         }
     
         public int ID { get; set; }
         public string Developer { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Games> Games { get; set; }
+        public virtual ICollection<GamesDevelopers> GamesDevelopers { get; set; }
     }
 }

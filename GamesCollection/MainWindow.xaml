@@ -5,8 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GamesCollection"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Icon="Images/icon.png"
+        Title="Коллеция игр" Height="500" Width="800">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Background="LightBlue" Grid.Row="0"></Grid>
+        <Grid Background="Blue" Grid.Row="2"></Grid>
+        <TextBlock Text="{Binding ElementName=MainFrame, Path=Content.Title}" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+        <Frame Name="MainFrame" Grid.Row="1" NavigationUIVisibility="Hidden" ContentRendered="MainFrame_ContentRendered"></Frame>
+        <Button Content="Назад" HorizontalAlignment="Right" VerticalAlignment="Center" Name="btnBack" Click="btnBack_Click"></Button>
+        <Button Content="Выход" HorizontalAlignment="Right" VerticalAlignment="Center" Name="btnExit" Click="btnExit_Click"></Button>
     </Grid>
 </Window>

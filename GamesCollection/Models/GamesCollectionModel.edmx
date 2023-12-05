@@ -19,21 +19,41 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="YearOfIssue" Type="int" Nullable="false" />
-          <Property Name="GenreID" Type="int" Nullable="false" />
           <Property Name="Rating" Type="float" Nullable="false" />
-          <Property Name="PublisherID" Type="int" Nullable="false" />
-          <Property Name="DeveloperID" Type="int" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Image" Type="image" />
         </EntityType>
-        <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "GamesCollection.dbo.GamesPlatforms" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="GamesDevelopers">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GameID" Type="int" Nullable="false" />
+          <Property Name="DeveloperID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GamesGenres">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GameID" Type="int" Nullable="false" />
+          <Property Name="GenreID" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="GamesPlatforms">
           <Key>
-            <PropertyRef Name="GameID" />
-            <PropertyRef Name="PlatformID" />
+            <PropertyRef Name="ID" />
           </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="GameID" Type="int" Nullable="false" />
           <Property Name="PlatformID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GamesPublishers">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GameID" Type="int" Nullable="false" />
+          <Property Name="PublisherID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Genres">
           <Key>
@@ -86,49 +106,59 @@
           <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "GamesCollection.dbo.UsersGames" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="UsersGames">
           <Key>
-            <PropertyRef Name="UserID" />
-            <PropertyRef Name="GameID" />
+            <PropertyRef Name="ID" />
           </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserID" Type="int" Nullable="false" />
           <Property Name="GameID" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="FK_Games_Developers">
+        <Association Name="FK_GamesDevelopers_Developers">
           <End Role="Developers" Type="Self.Developers" Multiplicity="1" />
-          <End Role="Games" Type="Self.Games" Multiplicity="*" />
+          <End Role="GamesDevelopers" Type="Self.GamesDevelopers" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Developers">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="Games">
+            <Dependent Role="GamesDevelopers">
               <PropertyRef Name="DeveloperID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Games_Genres">
+        <Association Name="FK_GamesDevelopers_Games">
+          <End Role="Games" Type="Self.Games" Multiplicity="1" />
+          <End Role="GamesDevelopers" Type="Self.GamesDevelopers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Games">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GamesDevelopers">
+              <PropertyRef Name="GameID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GamesGenres_Games">
+          <End Role="Games" Type="Self.Games" Multiplicity="1" />
+          <End Role="GamesGenres" Type="Self.GamesGenres" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Games">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GamesGenres">
+              <PropertyRef Name="GameID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GamesGenres_Genres">
           <End Role="Genres" Type="Self.Genres" Multiplicity="1" />
-          <End Role="Games" Type="Self.Games" Multiplicity="*" />
+          <End Role="GamesGenres" Type="Self.GamesGenres" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Genres">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="Games">
+            <Dependent Role="GamesGenres">
               <PropertyRef Name="GenreID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Games_Publishers">
-          <End Role="Publishers" Type="Self.Publishers" Multiplicity="1" />
-          <End Role="Games" Type="Self.Games" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Publishers">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Games">
-              <PropertyRef Name="PublisherID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -153,6 +183,30 @@
             </Principal>
             <Dependent Role="GamesPlatforms">
               <PropertyRef Name="PlatformID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GamesPublishers_Games">
+          <End Role="Games" Type="Self.Games" Multiplicity="1" />
+          <End Role="GamesPublishers" Type="Self.GamesPublishers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Games">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GamesPublishers">
+              <PropertyRef Name="GameID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GamesPublishers_Publishers">
+          <End Role="Publishers" Type="Self.Publishers" Multiplicity="1" />
+          <End Role="GamesPublishers" Type="Self.GamesPublishers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Publishers">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GamesPublishers">
+              <PropertyRef Name="PublisherID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -195,35 +249,32 @@
         <EntityContainer Name="Хранилище GamesCollectionModelContainer">
           <EntitySet Name="Developers" EntityType="Self.Developers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Games" EntityType="Self.Games" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GamesDevelopers" EntityType="Self.GamesDevelopers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GamesGenres" EntityType="Self.GamesGenres" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GamesPlatforms" EntityType="Self.GamesPlatforms" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GamesPublishers" EntityType="Self.GamesPublishers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Genres" EntityType="Self.Genres" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Platforms" EntityType="Self.Platforms" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Publishers" EntityType="Self.Publishers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="GamesPlatforms" EntityType="Self.GamesPlatforms" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [GamesPlatforms].[GameID] AS [GameID], 
-    [GamesPlatforms].[PlatformID] AS [PlatformID]
-    FROM [dbo].[GamesPlatforms] AS [GamesPlatforms]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="UsersGames" EntityType="Self.UsersGames" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [UsersGames].[UserID] AS [UserID], 
-    [UsersGames].[GameID] AS [GameID]
-    FROM [dbo].[UsersGames] AS [UsersGames]</DefiningQuery>
-          </EntitySet>
-          <AssociationSet Name="FK_Games_Developers" Association="Self.FK_Games_Developers">
+          <EntitySet Name="UsersGames" EntityType="Self.UsersGames" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_GamesDevelopers_Developers" Association="Self.FK_GamesDevelopers_Developers">
             <End Role="Developers" EntitySet="Developers" />
-            <End Role="Games" EntitySet="Games" />
+            <End Role="GamesDevelopers" EntitySet="GamesDevelopers" />
           </AssociationSet>
-          <AssociationSet Name="FK_Games_Genres" Association="Self.FK_Games_Genres">
+          <AssociationSet Name="FK_GamesDevelopers_Games" Association="Self.FK_GamesDevelopers_Games">
+            <End Role="Games" EntitySet="Games" />
+            <End Role="GamesDevelopers" EntitySet="GamesDevelopers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GamesGenres_Games" Association="Self.FK_GamesGenres_Games">
+            <End Role="Games" EntitySet="Games" />
+            <End Role="GamesGenres" EntitySet="GamesGenres" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GamesGenres_Genres" Association="Self.FK_GamesGenres_Genres">
             <End Role="Genres" EntitySet="Genres" />
-            <End Role="Games" EntitySet="Games" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Games_Publishers" Association="Self.FK_Games_Publishers">
-            <End Role="Publishers" EntitySet="Publishers" />
-            <End Role="Games" EntitySet="Games" />
+            <End Role="GamesGenres" EntitySet="GamesGenres" />
           </AssociationSet>
           <AssociationSet Name="FK_GamesPlatforms_Games" Association="Self.FK_GamesPlatforms_Games">
             <End Role="Games" EntitySet="Games" />
@@ -232,6 +283,14 @@
           <AssociationSet Name="FK_GamesPlatforms_Platforms" Association="Self.FK_GamesPlatforms_Platforms">
             <End Role="Platforms" EntitySet="Platforms" />
             <End Role="GamesPlatforms" EntitySet="GamesPlatforms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GamesPublishers_Games" Association="Self.FK_GamesPublishers_Games">
+            <End Role="Games" EntitySet="Games" />
+            <End Role="GamesPublishers" EntitySet="GamesPublishers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GamesPublishers_Publishers" Association="Self.FK_GamesPublishers_Publishers">
+            <End Role="Publishers" EntitySet="Publishers" />
+            <End Role="GamesPublishers" EntitySet="GamesPublishers" />
           </AssociationSet>
           <AssociationSet Name="FK_Users_Roles" Association="Self.FK_Users_Roles">
             <End Role="Roles" EntitySet="Roles" />
@@ -257,7 +316,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Developer" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Games" Relationship="Self.FK_Games_Developers" FromRole="Developers" ToRole="Games" />
+          <NavigationProperty Name="GamesDevelopers" Relationship="Self.FK_GamesDevelopers_Developers" FromRole="Developers" ToRole="GamesDevelopers" />
         </EntityType>
         <EntityType Name="Games">
           <Key>
@@ -266,16 +325,54 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="YearOfIssue" Type="Int32" Nullable="false" />
-          <Property Name="GenreID" Type="Int32" Nullable="false" />
           <Property Name="Rating" Type="Double" Nullable="false" />
-          <Property Name="PublisherID" Type="Int32" Nullable="false" />
-          <Property Name="DeveloperID" Type="Int32" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Developers" Relationship="Self.FK_Games_Developers" FromRole="Games" ToRole="Developers" />
-          <NavigationProperty Name="Genres" Relationship="Self.FK_Games_Genres" FromRole="Games" ToRole="Genres" />
-          <NavigationProperty Name="Publishers" Relationship="Self.FK_Games_Publishers" FromRole="Games" ToRole="Publishers" />
-          <NavigationProperty Name="Platforms" Relationship="Self.GamesPlatforms" FromRole="Games" ToRole="Platforms" />
-          <NavigationProperty Name="Users" Relationship="Self.UsersGames" FromRole="Games" ToRole="Users" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="GamesDevelopers" Relationship="Self.FK_GamesDevelopers_Games" FromRole="Games" ToRole="GamesDevelopers" />
+          <NavigationProperty Name="GamesGenres" Relationship="Self.FK_GamesGenres_Games" FromRole="Games" ToRole="GamesGenres" />
+          <NavigationProperty Name="GamesPlatforms" Relationship="Self.FK_GamesPlatforms_Games" FromRole="Games" ToRole="GamesPlatforms" />
+          <NavigationProperty Name="GamesPublishers" Relationship="Self.FK_GamesPublishers_Games" FromRole="Games" ToRole="GamesPublishers" />
+          <NavigationProperty Name="UsersGames" Relationship="Self.FK_UsersGames_Games" FromRole="Games" ToRole="UsersGames" />
+        </EntityType>
+        <EntityType Name="GamesDevelopers">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GameID" Type="Int32" Nullable="false" />
+          <Property Name="DeveloperID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Developers" Relationship="Self.FK_GamesDevelopers_Developers" FromRole="GamesDevelopers" ToRole="Developers" />
+          <NavigationProperty Name="Games" Relationship="Self.FK_GamesDevelopers_Games" FromRole="GamesDevelopers" ToRole="Games" />
+        </EntityType>
+        <EntityType Name="GamesGenres">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GameID" Type="Int32" Nullable="false" />
+          <Property Name="GenreID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Games" Relationship="Self.FK_GamesGenres_Games" FromRole="GamesGenres" ToRole="Games" />
+          <NavigationProperty Name="Genres" Relationship="Self.FK_GamesGenres_Genres" FromRole="GamesGenres" ToRole="Genres" />
+        </EntityType>
+        <EntityType Name="GamesPlatforms">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GameID" Type="Int32" Nullable="false" />
+          <Property Name="PlatformID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Games" Relationship="Self.FK_GamesPlatforms_Games" FromRole="GamesPlatforms" ToRole="Games" />
+          <NavigationProperty Name="Platforms" Relationship="Self.FK_GamesPlatforms_Platforms" FromRole="GamesPlatforms" ToRole="Platforms" />
+        </EntityType>
+        <EntityType Name="GamesPublishers">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GameID" Type="Int32" Nullable="false" />
+          <Property Name="PublisherID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Games" Relationship="Self.FK_GamesPublishers_Games" FromRole="GamesPublishers" ToRole="Games" />
+          <NavigationProperty Name="Publishers" Relationship="Self.FK_GamesPublishers_Publishers" FromRole="GamesPublishers" ToRole="Publishers" />
         </EntityType>
         <EntityType Name="Genres">
           <Key>
@@ -283,7 +380,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Genre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Games" Relationship="Self.FK_Games_Genres" FromRole="Genres" ToRole="Games" />
+          <NavigationProperty Name="GamesGenres" Relationship="Self.FK_GamesGenres_Genres" FromRole="Genres" ToRole="GamesGenres" />
         </EntityType>
         <EntityType Name="Platforms">
           <Key>
@@ -291,7 +388,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Platform" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Games" Relationship="Self.GamesPlatforms" FromRole="Platforms" ToRole="Games" />
+          <NavigationProperty Name="GamesPlatforms" Relationship="Self.FK_GamesPlatforms_Platforms" FromRole="Platforms" ToRole="GamesPlatforms" />
         </EntityType>
         <EntityType Name="Publishers">
           <Key>
@@ -299,7 +396,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Publisher" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Games" Relationship="Self.FK_Games_Publishers" FromRole="Publishers" ToRole="Games" />
+          <NavigationProperty Name="GamesPublishers" Relationship="Self.FK_GamesPublishers_Publishers" FromRole="Publishers" ToRole="GamesPublishers" />
         </EntityType>
         <EntityType Name="Roles">
           <Key>
@@ -332,40 +429,122 @@
           <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Roles" Relationship="Self.FK_Users_Roles" FromRole="Users" ToRole="Roles" />
-          <NavigationProperty Name="Games" Relationship="Self.UsersGames" FromRole="Users" ToRole="Games" />
+          <NavigationProperty Name="UsersGames" Relationship="Self.FK_UsersGames_Users" FromRole="Users" ToRole="UsersGames" />
         </EntityType>
-        <Association Name="FK_Games_Developers">
+        <EntityType Name="UsersGames">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="GameID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Games" Relationship="Self.FK_UsersGames_Games" FromRole="UsersGames" ToRole="Games" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_UsersGames_Users" FromRole="UsersGames" ToRole="Users" />
+        </EntityType>
+        <Association Name="FK_GamesDevelopers_Developers">
           <End Role="Developers" Type="Self.Developers" Multiplicity="1" />
-          <End Role="Games" Type="Self.Games" Multiplicity="*" />
+          <End Role="GamesDevelopers" Type="Self.GamesDevelopers" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Developers">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="Games">
+            <Dependent Role="GamesDevelopers">
               <PropertyRef Name="DeveloperID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Games_Genres">
+        <Association Name="FK_GamesDevelopers_Games">
+          <End Role="Games" Type="Self.Games" Multiplicity="1" />
+          <End Role="GamesDevelopers" Type="Self.GamesDevelopers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Games">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GamesDevelopers">
+              <PropertyRef Name="GameID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GamesGenres_Games">
+          <End Role="Games" Type="Self.Games" Multiplicity="1" />
+          <End Role="GamesGenres" Type="Self.GamesGenres" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Games">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GamesGenres">
+              <PropertyRef Name="GameID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GamesPlatforms_Games">
+          <End Role="Games" Type="Self.Games" Multiplicity="1" />
+          <End Role="GamesPlatforms" Type="Self.GamesPlatforms" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Games">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GamesPlatforms">
+              <PropertyRef Name="GameID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GamesPublishers_Games">
+          <End Role="Games" Type="Self.Games" Multiplicity="1" />
+          <End Role="GamesPublishers" Type="Self.GamesPublishers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Games">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GamesPublishers">
+              <PropertyRef Name="GameID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsersGames_Games">
+          <End Role="Games" Type="Self.Games" Multiplicity="1" />
+          <End Role="UsersGames" Type="Self.UsersGames" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Games">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UsersGames">
+              <PropertyRef Name="GameID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GamesGenres_Genres">
           <End Role="Genres" Type="Self.Genres" Multiplicity="1" />
-          <End Role="Games" Type="Self.Games" Multiplicity="*" />
+          <End Role="GamesGenres" Type="Self.GamesGenres" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Genres">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="Games">
+            <Dependent Role="GamesGenres">
               <PropertyRef Name="GenreID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Games_Publishers">
+        <Association Name="FK_GamesPlatforms_Platforms">
+          <End Role="Platforms" Type="Self.Platforms" Multiplicity="1" />
+          <End Role="GamesPlatforms" Type="Self.GamesPlatforms" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Platforms">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GamesPlatforms">
+              <PropertyRef Name="PlatformID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GamesPublishers_Publishers">
           <End Role="Publishers" Type="Self.Publishers" Multiplicity="1" />
-          <End Role="Games" Type="Self.Games" Multiplicity="*" />
+          <End Role="GamesPublishers" Type="Self.GamesPublishers" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Publishers">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="Games">
+            <Dependent Role="GamesPublishers">
               <PropertyRef Name="PublisherID" />
             </Dependent>
           </ReferentialConstraint>
@@ -382,46 +561,75 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="GamesPlatforms">
-          <End Role="Games" Type="Self.Games" Multiplicity="*" />
-          <End Role="Platforms" Type="Self.Platforms" Multiplicity="*" />
-        </Association>
-        <Association Name="UsersGames">
-          <End Role="Games" Type="Self.Games" Multiplicity="*" />
-          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+        <Association Name="FK_UsersGames_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="UsersGames" Type="Self.UsersGames" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UsersGames">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
         <EntityContainer Name="GamesCollectionEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Developers" EntityType="Self.Developers" />
           <EntitySet Name="Games" EntityType="Self.Games" />
+          <EntitySet Name="GamesDevelopers" EntityType="Self.GamesDevelopers" />
+          <EntitySet Name="GamesGenres" EntityType="Self.GamesGenres" />
+          <EntitySet Name="GamesPlatforms" EntityType="Self.GamesPlatforms" />
+          <EntitySet Name="GamesPublishers" EntityType="Self.GamesPublishers" />
           <EntitySet Name="Genres" EntityType="Self.Genres" />
           <EntitySet Name="Platforms" EntityType="Self.Platforms" />
           <EntitySet Name="Publishers" EntityType="Self.Publishers" />
           <EntitySet Name="Roles" EntityType="Self.Roles" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="Users" EntityType="Self.Users" />
-          <AssociationSet Name="FK_Games_Developers" Association="Self.FK_Games_Developers">
+          <EntitySet Name="UsersGames" EntityType="Self.UsersGames" />
+          <AssociationSet Name="FK_GamesDevelopers_Developers" Association="Self.FK_GamesDevelopers_Developers">
             <End Role="Developers" EntitySet="Developers" />
-            <End Role="Games" EntitySet="Games" />
+            <End Role="GamesDevelopers" EntitySet="GamesDevelopers" />
           </AssociationSet>
-          <AssociationSet Name="FK_Games_Genres" Association="Self.FK_Games_Genres">
+          <AssociationSet Name="FK_GamesDevelopers_Games" Association="Self.FK_GamesDevelopers_Games">
+            <End Role="Games" EntitySet="Games" />
+            <End Role="GamesDevelopers" EntitySet="GamesDevelopers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GamesGenres_Games" Association="Self.FK_GamesGenres_Games">
+            <End Role="Games" EntitySet="Games" />
+            <End Role="GamesGenres" EntitySet="GamesGenres" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GamesPlatforms_Games" Association="Self.FK_GamesPlatforms_Games">
+            <End Role="Games" EntitySet="Games" />
+            <End Role="GamesPlatforms" EntitySet="GamesPlatforms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GamesPublishers_Games" Association="Self.FK_GamesPublishers_Games">
+            <End Role="Games" EntitySet="Games" />
+            <End Role="GamesPublishers" EntitySet="GamesPublishers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsersGames_Games" Association="Self.FK_UsersGames_Games">
+            <End Role="Games" EntitySet="Games" />
+            <End Role="UsersGames" EntitySet="UsersGames" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GamesGenres_Genres" Association="Self.FK_GamesGenres_Genres">
             <End Role="Genres" EntitySet="Genres" />
-            <End Role="Games" EntitySet="Games" />
+            <End Role="GamesGenres" EntitySet="GamesGenres" />
           </AssociationSet>
-          <AssociationSet Name="FK_Games_Publishers" Association="Self.FK_Games_Publishers">
+          <AssociationSet Name="FK_GamesPlatforms_Platforms" Association="Self.FK_GamesPlatforms_Platforms">
+            <End Role="Platforms" EntitySet="Platforms" />
+            <End Role="GamesPlatforms" EntitySet="GamesPlatforms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GamesPublishers_Publishers" Association="Self.FK_GamesPublishers_Publishers">
             <End Role="Publishers" EntitySet="Publishers" />
-            <End Role="Games" EntitySet="Games" />
+            <End Role="GamesPublishers" EntitySet="GamesPublishers" />
           </AssociationSet>
           <AssociationSet Name="FK_Users_Roles" Association="Self.FK_Users_Roles">
             <End Role="Roles" EntitySet="Roles" />
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
-          <AssociationSet Name="GamesPlatforms" Association="Self.GamesPlatforms">
-            <End Role="Games" EntitySet="Games" />
-            <End Role="Platforms" EntitySet="Platforms" />
-          </AssociationSet>
-          <AssociationSet Name="UsersGames" Association="Self.UsersGames">
-            <End Role="Games" EntitySet="Games" />
+          <AssociationSet Name="FK_UsersGames_Users" Association="Self.FK_UsersGames_Users">
             <End Role="Users" EntitySet="Users" />
+            <End Role="UsersGames" EntitySet="UsersGames" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -444,11 +652,45 @@
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="YearOfIssue" ColumnName="YearOfIssue" />
-                <ScalarProperty Name="GenreID" ColumnName="GenreID" />
                 <ScalarProperty Name="Rating" ColumnName="Rating" />
-                <ScalarProperty Name="PublisherID" ColumnName="PublisherID" />
-                <ScalarProperty Name="DeveloperID" ColumnName="DeveloperID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GamesDevelopers">
+            <EntityTypeMapping TypeName="GamesCollectionModel.GamesDevelopers">
+              <MappingFragment StoreEntitySet="GamesDevelopers">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="GameID" ColumnName="GameID" />
+                <ScalarProperty Name="DeveloperID" ColumnName="DeveloperID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GamesGenres">
+            <EntityTypeMapping TypeName="GamesCollectionModel.GamesGenres">
+              <MappingFragment StoreEntitySet="GamesGenres">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="GameID" ColumnName="GameID" />
+                <ScalarProperty Name="GenreID" ColumnName="GenreID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GamesPlatforms">
+            <EntityTypeMapping TypeName="GamesCollectionModel.GamesPlatforms">
+              <MappingFragment StoreEntitySet="GamesPlatforms">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="GameID" ColumnName="GameID" />
+                <ScalarProperty Name="PlatformID" ColumnName="PlatformID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GamesPublishers">
+            <EntityTypeMapping TypeName="GamesCollectionModel.GamesPublishers">
+              <MappingFragment StoreEntitySet="GamesPublishers">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="GameID" ColumnName="GameID" />
+                <ScalarProperty Name="PublisherID" ColumnName="PublisherID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -509,22 +751,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="GamesPlatforms" TypeName="GamesCollectionModel.GamesPlatforms" StoreEntitySet="GamesPlatforms">
-            <EndProperty Name="Games">
-              <ScalarProperty Name="ID" ColumnName="GameID" />
-            </EndProperty>
-            <EndProperty Name="Platforms">
-              <ScalarProperty Name="ID" ColumnName="PlatformID" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="UsersGames" TypeName="GamesCollectionModel.UsersGames" StoreEntitySet="UsersGames">
-            <EndProperty Name="Games">
-              <ScalarProperty Name="ID" ColumnName="GameID" />
-            </EndProperty>
-            <EndProperty Name="Users">
-              <ScalarProperty Name="ID" ColumnName="UserID" />
-            </EndProperty>
-          </AssociationSetMapping>
+          <EntitySetMapping Name="UsersGames">
+            <EntityTypeMapping TypeName="GamesCollectionModel.UsersGames">
+              <MappingFragment StoreEntitySet="UsersGames">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="GameID" ColumnName="GameID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

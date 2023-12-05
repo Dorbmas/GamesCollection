@@ -4,21 +4,31 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="2bb720939d084cdebc09a070d5e07b2a" Name="Diagram1">
-        <EntityTypeShape EntityType="GamesCollectionModel.Developers" Width="1.5" PointX="0.75" PointY="4.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="GamesCollectionModel.Games" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="GamesCollectionModel.Genres" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="GamesCollectionModel.Platforms" Width="1.5" PointX="5.25" PointY="4.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="GamesCollectionModel.Publishers" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="GamesCollectionModel.Roles" Width="1.5" PointX="3" PointY="9.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="GamesCollectionModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="7.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="GamesCollectionModel.Users" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
-        <AssociationConnector Association="GamesCollectionModel.FK_Games_Developers" ManuallyRouted="false" />
-        <AssociationConnector Association="GamesCollectionModel.FK_Games_Genres" ManuallyRouted="false" />
-        <AssociationConnector Association="GamesCollectionModel.FK_Games_Publishers" ManuallyRouted="false" />
+      <Diagram DiagramId="a6fb2afec46242b6b9d1d528ab728111" Name="Diagram1">
+        <EntityTypeShape EntityType="GamesCollectionModel.Developers" Width="1.5" PointX="0.75" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="GamesCollectionModel.Games" Width="1.5" PointX="0.75" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="GamesCollectionModel.GamesDevelopers" Width="1.5" PointX="3" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="GamesCollectionModel.GamesGenres" Width="1.5" PointX="3" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="GamesCollectionModel.GamesPlatforms" Width="1.5" PointX="3" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="GamesCollectionModel.GamesPublishers" Width="1.5" PointX="6" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="GamesCollectionModel.Genres" Width="1.5" PointX="0.75" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="GamesCollectionModel.Platforms" Width="1.5" PointX="0.75" PointY="17.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="GamesCollectionModel.Publishers" Width="1.5" PointX="3.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="GamesCollectionModel.Roles" Width="1.5" PointX="1.5" PointY="14.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="GamesCollectionModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GamesCollectionModel.Users" Width="1.5" PointX="3.75" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GamesCollectionModel.UsersGames" Width="1.5" PointX="6" PointY="3.875" IsExpanded="true" />
+        <AssociationConnector Association="GamesCollectionModel.FK_GamesDevelopers_Developers" ManuallyRouted="false" />
+        <AssociationConnector Association="GamesCollectionModel.FK_GamesDevelopers_Games" ManuallyRouted="false" />
+        <AssociationConnector Association="GamesCollectionModel.FK_GamesGenres_Games" ManuallyRouted="false" />
+        <AssociationConnector Association="GamesCollectionModel.FK_GamesPlatforms_Games" ManuallyRouted="false" />
+        <AssociationConnector Association="GamesCollectionModel.FK_GamesPublishers_Games" ManuallyRouted="false" />
+        <AssociationConnector Association="GamesCollectionModel.FK_UsersGames_Games" ManuallyRouted="false" />
+        <AssociationConnector Association="GamesCollectionModel.FK_GamesGenres_Genres" ManuallyRouted="false" />
+        <AssociationConnector Association="GamesCollectionModel.FK_GamesPlatforms_Platforms" ManuallyRouted="false" />
+        <AssociationConnector Association="GamesCollectionModel.FK_GamesPublishers_Publishers" ManuallyRouted="false" />
         <AssociationConnector Association="GamesCollectionModel.FK_Users_Roles" ManuallyRouted="false" />
-        <AssociationConnector Association="GamesCollectionModel.GamesPlatforms" ManuallyRouted="false" />
-        <AssociationConnector Association="GamesCollectionModel.UsersGames" ManuallyRouted="false" />
+        <AssociationConnector Association="GamesCollectionModel.FK_UsersGames_Users" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

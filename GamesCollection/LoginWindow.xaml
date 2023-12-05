@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GamesCollection"
         mc:Ignorable="d"
+        Icon="Images/icon.png"
         Title="Авторизация" Height="500" Width="800">
     <Grid>
         <Grid.RowDefinitions>
@@ -12,5 +13,6 @@
             <RowDefinition Height="350*"></RowDefinition>
         </Grid.RowDefinitions>
         <Frame Name="MainFrame" NavigationUIVisibility="Hidden" Grid.Row="1"></Frame>
+        <TextBlock Text="{Binding ElementName=MainFrame, Path=Content.Title}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40"></TextBlock>
     </Grid>
 </Window>

@@ -85,6 +85,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\GamesCollectionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\LoginPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -112,6 +116,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GamesCollectionModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\GamesDevelopers.cs">
+      <DependentUpon>GamesCollectionModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GamesGenres.cs">
+      <DependentUpon>GamesCollectionModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GamesPlatforms.cs">
+      <DependentUpon>GamesCollectionModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GamesPublishers.cs">
+      <DependentUpon>GamesCollectionModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Genres.cs">
       <DependentUpon>GamesCollectionModel.tt</DependentUpon>
     </Compile>
@@ -129,6 +145,12 @@
     </Compile>
     <Compile Include="Models\Users.cs">
       <DependentUpon>GamesCollectionModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UsersGames.cs">
+      <DependentUpon>GamesCollectionModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\GamesCollectionPage.xaml.cs">
+      <DependentUpon>GamesCollectionPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
@@ -169,8 +191,11 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
+    <Resource Include="Images\picture.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\icon.png" />
     <Content Include="Models\GamesCollectionModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>GamesCollectionModel.edmx</DependentUpon>

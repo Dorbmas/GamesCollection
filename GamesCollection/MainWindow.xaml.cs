@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GamesCollection.Classes;
+using GamesCollection.Pages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,10 +21,38 @@ namespace GamesCollection
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
-    {
+    {      
         public MainWindow()
         {
             InitializeComponent();
+            MainFrame.Navigate(new GamesCollectionPage());
+            Manager.MainFrame = MainFrame;
+        }
+
+        private void MainFrame_ContentRendered(object sender, EventArgs e)
+        {
+            if (MainFrame.CanGoBack)
+            {
+                btnBack.Visibility = Visibility.Visible;
+                btnExit.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                btnBack.Visibility = Visibility.Hidden;
+                btnExit.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            Manager.MainFrame.GoBack();
+        }
+
+        private void btnExit_Click(object sender, RoutedEventArgs e)
+        {
+            LoginWindow loginWindow = new LoginWindow();
+            loginWindow.Show();
+            this.Close();
         }
     }
 }

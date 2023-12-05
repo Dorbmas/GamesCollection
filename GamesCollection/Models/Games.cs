@@ -11,31 +11,136 @@ namespace GamesCollection.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Linq;
+
     public partial class Games
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Games()
         {
-            this.Platforms = new HashSet<Platforms>();
-            this.Users = new HashSet<Users>();
+            this.GamesDevelopers = new HashSet<GamesDevelopers>();
+            this.GamesGenres = new HashSet<GamesGenres>();
+            this.GamesPlatforms = new HashSet<GamesPlatforms>();
+            this.GamesPublishers = new HashSet<GamesPublishers>();
+            this.UsersGames = new HashSet<UsersGames>();
         }
     
         public int ID { get; set; }
         public string Title { get; set; }
         public int YearOfIssue { get; set; }
-        public int GenreID { get; set; }
+        public string YearOfIssueString
+        {
+            get
+            {
+                var yearOfIssueString = $"Год выхода: {YearOfIssue}";
+                return yearOfIssueString;
+            }
+        }
         public double Rating { get; set; }
-        public int PublisherID { get; set; }
-        public int DeveloperID { get; set; }
+        public string RatingString
+        {
+            get
+            {
+                var ratingString = $"Рейтинг: {Rating}";
+                return ratingString;
+            }          
+        }
         public string Description { get; set; }
-    
-        public virtual Developers Developers { get; set; }
-        public virtual Genres Genres { get; set; }
-        public virtual Publishers Publishers { get; set; }
+        public byte[] Image { get; set; }
+        public string Platform
+        {
+            get
+            {
+                string platromsList = "";
+                var gamesPlatforms = GamesCollectionEntities.GetContext().GamesPlatforms.ToList().Where(p => p.GameID == ID).ToList();
+                var platforms = GamesCollectionEntities.GetContext().Platforms.ToList();
+                int counter = 0;
+                foreach ( var platform in gamesPlatforms)
+                {
+                    var currentPlatform = platforms.Where(m => m.ID == platform.PlatformID).First();
+                    if (counter == 2)
+                    {
+                        platromsList += ", ...";
+                        return platromsList;
+                    }
+                    if (platromsList != "")
+                    {
+                        platromsList += ", ";
+                    }
+                    platromsList += currentPlatform.Platform;
+                    counter++;
+                }
+                return platromsList;
+            }
+        }
+
+        public string PlatformString
+        {
+            get
+            {
+                var platformString = $"Платформы: {Platform}";
+                return platformString;
+            }
+        }
+
+        public string Developers
+        {
+            get
+            {
+                string developersList = "";
+                var gamesDevelopers = GamesCollectionEntities.GetContext().GamesDevelopers.ToList().Where(p => p.GameID == ID).ToList();
+                var developers = GamesCollectionEntities.GetContext().Developers.ToList();
+                foreach (var developer in gamesDevelopers)
+                {
+                    var currentDeveloper = developers.Where(m => m.ID == developer.DeveloperID).First();
+                    if (developersList != "")
+                    {
+                        developersList += ", ";
+                    }
+                    developersList += currentDeveloper.Developer;
+                }
+                return developersList;
+            }
+        }
+
+        public string Genre
+        {
+            get
+            {
+                string genreList = "";
+                var gamesGenres = GamesCollectionEntities.GetContext().GamesGenres.ToList().Where(p => p.GameID == ID).ToList();
+                var genres = GamesCollectionEntities.GetContext().Genres.ToList();
+                foreach (var genre in gamesGenres)
+                {
+                    var currentGenre = genres.Where(m => m.ID == genre.GenreID).First();
+                    if (genreList != "")
+                    {
+                        genreList += ", ";
+                    }
+                    genreList += currentGenre.Genre;
+                }
+                return genreList;
+            }
+        }
+
+        public string GenreString
+        {
+            get
+            {
+                var genreString = $"Жанры: {Genre}";
+                return genreString;
+            }
+        }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Platforms> Platforms { get; set; }
+        public virtual ICollection<GamesDevelopers> GamesDevelopers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Users> Users { get; set; }
+        public virtual ICollection<GamesGenres> GamesGenres { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GamesPlatforms> GamesPlatforms { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GamesPublishers> GamesPublishers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UsersGames> UsersGames { get; set; }
     }
 }

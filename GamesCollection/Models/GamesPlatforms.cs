@@ -12,18 +12,13 @@ namespace GamesCollection.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Genres
+    public partial class GamesPlatforms
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Genres()
-        {
-            this.GamesGenres = new HashSet<GamesGenres>();
-        }
-    
         public int ID { get; set; }
-        public string Genre { get; set; }
+        public int GameID { get; set; }
+        public int PlatformID { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GamesGenres> GamesGenres { get; set; }
+        public virtual Games Games { get; set; }
+        public virtual Platforms Platforms { get; set; }
     }
 }

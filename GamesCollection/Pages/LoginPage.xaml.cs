@@ -20,8 +20,7 @@ namespace GamesCollection.Pages
     /// Логика взаимодействия для LoginPage.xaml
     /// </summary>
     public partial class LoginPage : Page
-    {
-        MainWindow mainWindow = new MainWindow();
+    {       
         public LoginPage()
         {
             InitializeComponent();
@@ -29,6 +28,7 @@ namespace GamesCollection.Pages
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
+            MainWindow mainWindow = new MainWindow();
             try
             {
                 var user0bj = AppConnect.model0db.Users.FirstOrDefault(x => x.Login == txbLogin.Text && x.Password == psbPassword.Password);
@@ -44,10 +44,13 @@ namespace GamesCollection.Pages
                         case 1: MessageBox.Show("Здравствуйте, Администратор " + user0bj.Name + "!",
                             "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
                             mainWindow.Show();
+                            Window.GetWindow(this).Close();
                             break;
                         case 2:
                             MessageBox.Show("Здравствуйте, Пользователь " + user0bj.Name + "!",
                             "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                            mainWindow.Show();
+                            Window.GetWindow(this).Close();
                             break;
                         default: MessageBox.Show("Данные не обнаружены!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Warning);
                             break;
