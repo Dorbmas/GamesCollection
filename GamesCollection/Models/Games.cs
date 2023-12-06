@@ -47,7 +47,7 @@ namespace GamesCollection.Models
         }
         public string Description { get; set; }
         public byte[] Image { get; set; }
-        public string Platform
+        public string PlatformBriefly
         {
             get
             {
@@ -74,11 +74,11 @@ namespace GamesCollection.Models
             }
         }
 
-        public string PlatformString
+        public string PlatformBrieflyString
         {
             get
             {
-                var platformString = $"Платформы: {Platform}";
+                var platformString = $"Платформы: {PlatformBriefly}";
                 return platformString;
             }
         }

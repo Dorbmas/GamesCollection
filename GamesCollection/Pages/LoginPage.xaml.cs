@@ -1,4 +1,5 @@
 ﻿using GamesCollection.Classes;
+using GamesCollection.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,18 +21,28 @@ namespace GamesCollection.Pages
     /// Логика взаимодействия для LoginPage.xaml
     /// </summary>
     public partial class LoginPage : Page
-    {       
+    {
+        int selectedID = 0;
         public LoginPage()
         {
             InitializeComponent();
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
-        {
-            MainWindow mainWindow = new MainWindow();
-            try
+        {           
+            string txtLogin = txbLogin.Text;
+            var currentUser = GamesCollectionEntities.GetContext().Users.Where(x => x.Login == txbLogin.Text).ToList();
+            if (currentUser.Count > 0)
             {
-                var user0bj = AppConnect.model0db.Users.FirstOrDefault(x => x.Login == txbLogin.Text && x.Password == psbPassword.Password);
+                selectedID = currentUser[0].RoleID;
+            }
+
+            MainWindow mainWindow = new MainWindow(selectedID);
+
+            try
+            {              
+                var user0bj = AppConnect.model0db.Users.FirstOrDefault(x => x.Login == txbLogin.Text && x.Password == psbPassword.Password);                         
+                
                 if (user0bj == null)
                 {
                     MessageBox.Show("Такого пользователя нет!", "Ошибка при авторизации!",
@@ -42,7 +53,7 @@ namespace GamesCollection.Pages
                     switch (user0bj.RoleID)
                     {
                         case 1: MessageBox.Show("Здравствуйте, Администратор " + user0bj.Name + "!",
-                            "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                            "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);            
                             mainWindow.Show();
                             Window.GetWindow(this).Close();
                             break;
@@ -62,16 +73,15 @@ namespace GamesCollection.Pages
                 MessageBox.Show("Ошибка " + ex.Message.ToString() + "Критическая работа приложения!",
                     "Уведомление", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
-        }
-
-        private void btnRegistration_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+        }      
 
         private void btnGuest_Click(object sender, RoutedEventArgs e)
         {
-
+            MessageBox.Show("Здравствуйте, Гость!",
+                            "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+            MainWindow mainWindow = new MainWindow(selectedID);
+            mainWindow.Show();
+            Window.GetWindow(this).Close();            
         }
     }
 }

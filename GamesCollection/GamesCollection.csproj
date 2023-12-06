@@ -85,6 +85,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\AddEditGamesCollectionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\GamesCollectionPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -148,6 +152,9 @@
     </Compile>
     <Compile Include="Models\UsersGames.cs">
       <DependentUpon>GamesCollectionModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AddEditGamesCollectionPage.xaml.cs">
+      <DependentUpon>AddEditGamesCollectionPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\GamesCollectionPage.xaml.cs">
       <DependentUpon>GamesCollectionPage.xaml</DependentUpon>

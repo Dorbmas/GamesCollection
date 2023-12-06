@@ -21,12 +21,14 @@ namespace GamesCollection
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
-    {      
-        public MainWindow()
+    {
+        int selectedID1;
+        public MainWindow(int selectedID)
         {
             InitializeComponent();
-            MainFrame.Navigate(new GamesCollectionPage());
-            Manager.MainFrame = MainFrame;
+            selectedID1 = selectedID;
+            MainFrame.Navigate(new GamesCollectionPage(selectedID1));
+            Manager.MainFrame = MainFrame;            
         }
 
         private void MainFrame_ContentRendered(object sender, EventArgs e)
