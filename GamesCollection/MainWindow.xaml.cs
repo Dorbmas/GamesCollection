@@ -22,12 +22,14 @@ namespace GamesCollection
     /// </summary>
     public partial class MainWindow : Window
     {
+        int selectedRoleID1;
         int selectedID1;
-        public MainWindow(int selectedID)
+        public MainWindow(int selectedRoleID, int selectedID)
         {
             InitializeComponent();
+            selectedRoleID1 = selectedRoleID;
             selectedID1 = selectedID;
-            MainFrame.Navigate(new GamesCollectionPage(selectedID1));
+            MainFrame.Navigate(new GamesCollectionPage(selectedRoleID1, selectedID1));
             Manager.MainFrame = MainFrame;            
         }
 

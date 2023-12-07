@@ -83,6 +83,36 @@ namespace GamesCollection.Models
             }
         }
 
+        public string Platform
+        {
+            get
+            {
+                string platromsList = "";
+                var gamesPlatforms = GamesCollectionEntities.GetContext().GamesPlatforms.ToList().Where(p => p.GameID == ID).ToList();
+                var platforms = GamesCollectionEntities.GetContext().Platforms.ToList();
+                foreach (var platform in gamesPlatforms)
+                {
+                    var currentPlatform = platforms.Where(m => m.ID == platform.PlatformID).First();
+                    
+                    if (platromsList != "")
+                    {
+                        platromsList += ", ";
+                    }
+                    platromsList += currentPlatform.Platform;
+                }
+                return platromsList;
+            }
+        }
+
+        public string PlatformString
+        {
+            get
+            {
+                var platformString = $"Платформы: {Platform}";
+                return platformString;
+            }
+        }
+
         public string Developers
         {
             get
@@ -100,6 +130,15 @@ namespace GamesCollection.Models
                     developersList += currentDeveloper.Developer;
                 }
                 return developersList;
+            }
+        }
+
+        public string DeveloperString
+        {
+            get
+            {
+                var developerString = $"Разработчики: {Developers}";
+                return developerString;
             }
         }
 
@@ -129,6 +168,35 @@ namespace GamesCollection.Models
             {
                 var genreString = $"Жанры: {Genre}";
                 return genreString;
+            }
+        }
+
+        public string Publisher
+        {
+            get
+            {
+                string publisherList = "";
+                var gamesPublishers = GamesCollectionEntities.GetContext().GamesPublishers.ToList().Where(p => p.GameID == ID).ToList();
+                var publishers = GamesCollectionEntities.GetContext().Publishers.ToList();
+                foreach (var publisher in gamesPublishers)
+                {
+                    var currentPublisher = publishers.Where(m => m.ID == publisher.PublisherID).First();
+                    if (publisherList != "")
+                    {
+                        publisherList += ", ";
+                    }
+                    publisherList += currentPublisher.Publisher;
+                }
+                return publisherList;
+            }
+        }
+
+        public string PublisherString
+        {
+            get
+            {
+                var publisherString = $"Издатели: {Publisher}";
+                return publisherString;
             }
         }
 

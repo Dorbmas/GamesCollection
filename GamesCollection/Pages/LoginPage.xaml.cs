@@ -22,6 +22,7 @@ namespace GamesCollection.Pages
     /// </summary>
     public partial class LoginPage : Page
     {
+        int selectedRoleID = 0;
         int selectedID = 0;
         public LoginPage()
         {
@@ -34,10 +35,11 @@ namespace GamesCollection.Pages
             var currentUser = GamesCollectionEntities.GetContext().Users.Where(x => x.Login == txbLogin.Text).ToList();
             if (currentUser.Count > 0)
             {
-                selectedID = currentUser[0].RoleID;
+                selectedRoleID = currentUser[0].RoleID;
+                selectedID = currentUser[0].ID;
             }
 
-            MainWindow mainWindow = new MainWindow(selectedID);
+            MainWindow mainWindow = new MainWindow(selectedRoleID, selectedID);
 
             try
             {              
@@ -79,7 +81,7 @@ namespace GamesCollection.Pages
         {
             MessageBox.Show("Здравствуйте, Гость!",
                             "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
-            MainWindow mainWindow = new MainWindow(selectedID);
+            MainWindow mainWindow = new MainWindow(selectedRoleID, selectedID);
             mainWindow.Show();
             Window.GetWindow(this).Close();            
         }

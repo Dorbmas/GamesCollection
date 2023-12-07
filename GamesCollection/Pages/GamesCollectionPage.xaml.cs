@@ -22,17 +22,42 @@ namespace GamesCollection.Pages
     /// </summary>
     public partial class GamesCollectionPage : Page
     {
-        private int selectedID2;
-        public GamesCollectionPage(int selectedID1)
+        int selectedRoleID1;
+        int selectedId1;
+        public GamesCollectionPage(int selectedRoleID, int selectedId)
         {
             InitializeComponent();
-            selectedID2 = selectedID1;
-            GamesCollectionListView.ItemsSource = GamesCollectionEntities.GetContext().Games.ToList();
-            if (selectedID2 == 1)
+            UpdateGames();
+            cbSorting.SelectedIndex = 0;
+            selectedRoleID1 = selectedRoleID;
+            selectedId1 = selectedId;
+            if (selectedRoleID1 == 1)
             {
                 btnAdd.Visibility = Visibility.Visible;
                 btnDelete.Visibility = Visibility.Visible;
             }
+        }
+
+        private void UpdateGames()
+        {
+            var currentGames = GamesCollectionEntities.GetContext().Games.ToList();
+
+            currentGames = currentGames.Where(x => x.Title.ToLower().Contains(tbSearch.Text.ToLower())).ToList();
+
+            if (cbSorting.SelectedIndex == 1)
+            {
+                currentGames = currentGames.OrderBy(x => x.Rating).ToList();
+            }
+            else if (cbSorting.SelectedIndex == 2)
+            {
+                currentGames = currentGames.OrderByDescending(x => x.Rating).ToList();
+            }
+            else
+            {
+                currentGames = currentGames.ToList();
+            }
+
+            GamesCollectionListView.ItemsSource = currentGames;
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
@@ -69,6 +94,21 @@ namespace GamesCollection.Pages
                 GamesCollectionEntities.GetContext().ChangeTracker.Entries().ToList().ForEach(p => p.Reload());
                 GamesCollectionListView.ItemsSource = GamesCollectionEntities.GetContext().Games.ToList();
             }
-        }      
+        }
+
+        private void btnDetails_Click(object sender, RoutedEventArgs e)
+        {
+            Manager.MainFrame.Navigate(new GamesCollectionMoreInformationPage((sender as Button).DataContext as Games, selectedRoleID1, selectedId1));
+        }
+
+        private void tbSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            UpdateGames();
+        }
+
+        private void cbSorting_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            UpdateGames();
+        }
     }
 }

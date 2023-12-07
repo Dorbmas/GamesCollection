@@ -89,6 +89,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\FavoriteGamesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\GamesCollectionMoreInformationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\GamesCollectionPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -155,6 +163,12 @@
     </Compile>
     <Compile Include="Pages\AddEditGamesCollectionPage.xaml.cs">
       <DependentUpon>AddEditGamesCollectionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\FavoriteGamesPage.xaml.cs">
+      <DependentUpon>FavoriteGamesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\GamesCollectionMoreInformationPage.xaml.cs">
+      <DependentUpon>GamesCollectionMoreInformationPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\GamesCollectionPage.xaml.cs">
       <DependentUpon>GamesCollectionPage.xaml</DependentUpon>

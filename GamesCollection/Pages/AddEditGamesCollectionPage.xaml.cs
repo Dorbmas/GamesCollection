@@ -1,6 +1,8 @@
 ﻿using GamesCollection.Models;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,7 +23,8 @@ namespace GamesCollection.Pages
     /// </summary>
     public partial class AddEditGamesCollectionPage : Page
     {
-        private Games _currentGame = new Games();
+        Games _currentGame = new Games();
+        byte[] imageData;
         public AddEditGamesCollectionPage(Games selectedGame)
         {
             InitializeComponent();
@@ -60,6 +63,21 @@ namespace GamesCollection.Pages
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message.ToString());
+            }
+        }
+
+        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Image (*.png, *.jpg, *.jpeg) |*.png; *.jpg; *.jpeg";
+            openFileDialog.Multiselect = false;
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                imageData = File.ReadAllBytes(openFileDialog.FileName);
+                imageService.Source = new ImageSourceConverter().ConvertFrom(imageData) as ImageSource;
+
+                _currentGame.Image = imageData;
             }
         }
     }
