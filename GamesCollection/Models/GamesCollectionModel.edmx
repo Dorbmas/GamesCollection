@@ -115,7 +115,9 @@
           <Property Name="GameID" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_GamesDevelopers_Developers">
-          <End Role="Developers" Type="Self.Developers" Multiplicity="1" />
+          <End Role="Developers" Type="Self.Developers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="GamesDevelopers" Type="Self.GamesDevelopers" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Developers">
@@ -127,7 +129,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_GamesDevelopers_Games">
-          <End Role="Games" Type="Self.Games" Multiplicity="1" />
+          <End Role="Games" Type="Self.Games" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="GamesDevelopers" Type="Self.GamesDevelopers" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Games">
@@ -139,7 +143,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_GamesGenres_Games">
-          <End Role="Games" Type="Self.Games" Multiplicity="1" />
+          <End Role="Games" Type="Self.Games" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="GamesGenres" Type="Self.GamesGenres" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Games">
@@ -151,7 +157,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_GamesGenres_Genres">
-          <End Role="Genres" Type="Self.Genres" Multiplicity="1" />
+          <End Role="Genres" Type="Self.Genres" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="GamesGenres" Type="Self.GamesGenres" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Genres">
@@ -163,7 +171,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_GamesPlatforms_Games">
-          <End Role="Games" Type="Self.Games" Multiplicity="1" />
+          <End Role="Games" Type="Self.Games" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="GamesPlatforms" Type="Self.GamesPlatforms" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Games">
@@ -175,7 +185,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_GamesPlatforms_Platforms">
-          <End Role="Platforms" Type="Self.Platforms" Multiplicity="1" />
+          <End Role="Platforms" Type="Self.Platforms" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="GamesPlatforms" Type="Self.GamesPlatforms" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Platforms">
@@ -187,7 +199,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_GamesPublishers_Games">
-          <End Role="Games" Type="Self.Games" Multiplicity="1" />
+          <End Role="Games" Type="Self.Games" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="GamesPublishers" Type="Self.GamesPublishers" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Games">
@@ -199,7 +213,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_GamesPublishers_Publishers">
-          <End Role="Publishers" Type="Self.Publishers" Multiplicity="1" />
+          <End Role="Publishers" Type="Self.Publishers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="GamesPublishers" Type="Self.GamesPublishers" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Publishers">
@@ -211,7 +227,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Users_Roles">
-          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Users" Type="Self.Users" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Roles">
@@ -223,7 +241,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UsersGames_Games">
-          <End Role="Games" Type="Self.Games" Multiplicity="1" />
+          <End Role="Games" Type="Self.Games" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="UsersGames" Type="Self.UsersGames" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Games">
@@ -235,7 +255,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UsersGames_Users">
-          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="UsersGames" Type="Self.UsersGames" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Users">
@@ -442,7 +464,9 @@
           <NavigationProperty Name="Users" Relationship="Self.FK_UsersGames_Users" FromRole="UsersGames" ToRole="Users" />
         </EntityType>
         <Association Name="FK_GamesDevelopers_Developers">
-          <End Role="Developers" Type="Self.Developers" Multiplicity="1" />
+          <End Role="Developers" Type="Self.Developers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="GamesDevelopers" Type="Self.GamesDevelopers" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Developers">
@@ -454,7 +478,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_GamesDevelopers_Games">
-          <End Role="Games" Type="Self.Games" Multiplicity="1" />
+          <End Role="Games" Type="Self.Games" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="GamesDevelopers" Type="Self.GamesDevelopers" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Games">
@@ -466,7 +492,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_GamesGenres_Games">
-          <End Role="Games" Type="Self.Games" Multiplicity="1" />
+          <End Role="Games" Type="Self.Games" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="GamesGenres" Type="Self.GamesGenres" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Games">
@@ -478,7 +506,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_GamesPlatforms_Games">
-          <End Role="Games" Type="Self.Games" Multiplicity="1" />
+          <End Role="Games" Type="Self.Games" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="GamesPlatforms" Type="Self.GamesPlatforms" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Games">
@@ -490,7 +520,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_GamesPublishers_Games">
-          <End Role="Games" Type="Self.Games" Multiplicity="1" />
+          <End Role="Games" Type="Self.Games" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="GamesPublishers" Type="Self.GamesPublishers" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Games">
@@ -502,7 +534,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UsersGames_Games">
-          <End Role="Games" Type="Self.Games" Multiplicity="1" />
+          <End Role="Games" Type="Self.Games" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="UsersGames" Type="Self.UsersGames" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Games">
@@ -514,7 +548,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_GamesGenres_Genres">
-          <End Role="Genres" Type="Self.Genres" Multiplicity="1" />
+          <End Role="Genres" Type="Self.Genres" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="GamesGenres" Type="Self.GamesGenres" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Genres">
@@ -526,7 +562,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_GamesPlatforms_Platforms">
-          <End Role="Platforms" Type="Self.Platforms" Multiplicity="1" />
+          <End Role="Platforms" Type="Self.Platforms" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="GamesPlatforms" Type="Self.GamesPlatforms" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Platforms">
@@ -538,7 +576,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_GamesPublishers_Publishers">
-          <End Role="Publishers" Type="Self.Publishers" Multiplicity="1" />
+          <End Role="Publishers" Type="Self.Publishers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="GamesPublishers" Type="Self.GamesPublishers" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Publishers">
@@ -550,7 +590,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Users_Roles">
-          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Users" Type="Self.Users" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Roles">
@@ -562,7 +604,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UsersGames_Users">
-          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="UsersGames" Type="Self.UsersGames" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Users">

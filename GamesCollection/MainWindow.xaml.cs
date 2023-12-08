@@ -1,4 +1,5 @@
 ﻿using GamesCollection.Classes;
+using GamesCollection.Models;
 using GamesCollection.Pages;
 using System;
 using System.Collections.Generic;
@@ -28,7 +29,7 @@ namespace GamesCollection
         {
             InitializeComponent();
             selectedRoleID1 = selectedRoleID;
-            selectedID1 = selectedID;
+            selectedID1 = selectedID;           
             MainFrame.Navigate(new GamesCollectionPage(selectedRoleID1, selectedID1));
             Manager.MainFrame = MainFrame;            
         }
@@ -39,11 +40,18 @@ namespace GamesCollection
             {
                 btnBack.Visibility = Visibility.Visible;
                 btnExit.Visibility = Visibility.Hidden;
+                btnFavorites.Visibility = Visibility.Hidden;
             }
             else
             {
                 btnBack.Visibility = Visibility.Hidden;
                 btnExit.Visibility = Visibility.Visible;
+                btnFavorites.Visibility = Visibility.Visible;
+            }
+
+            if (selectedRoleID1 != 1 && selectedRoleID1 != 2)
+            {
+                btnFavorites.Visibility = Visibility.Hidden;
             }
         }
 
@@ -57,6 +65,11 @@ namespace GamesCollection
             LoginWindow loginWindow = new LoginWindow();
             loginWindow.Show();
             this.Close();
+        }
+
+        private void btnFavorites_Click(object sender, RoutedEventArgs e)
+        {
+            Manager.MainFrame.Navigate(new FavoriteGamesPage(selectedID1, selectedRoleID1));
         }
     }
 }

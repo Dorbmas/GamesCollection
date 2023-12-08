@@ -20,5 +20,6 @@
         <Frame Name="MainFrame" Grid.Row="1" NavigationUIVisibility="Hidden" ContentRendered="MainFrame_ContentRendered"></Frame>
         <Button Content="Назад" HorizontalAlignment="Right" VerticalAlignment="Center" Name="btnBack" Click="btnBack_Click"></Button>
         <Button Content="Выход" HorizontalAlignment="Right" VerticalAlignment="Center" Name="btnExit" Click="btnExit_Click"></Button>
+        <Button Content="Избранное" HorizontalAlignment="Left" VerticalAlignment="Center" Name="btnFavorites" Click="btnFavorites_Click"></Button>
     </Grid>
 </Window>

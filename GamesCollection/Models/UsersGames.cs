@@ -11,9 +11,71 @@ namespace GamesCollection.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Linq;
+
     public partial class UsersGames
     {
+        public string Title
+        {
+            get
+            {
+                var currentGame = GamesCollectionEntities.GetContext().Games.Where(g => g.ID == GameID).FirstOrDefault();
+                return currentGame.Title;
+            }
+        }
+
+        public string RatingString
+        {
+            get
+            {
+                var currentRatingString = GamesCollectionEntities.GetContext().Games.Where(g => g.ID == GameID).FirstOrDefault();
+                return currentRatingString.RatingString;
+            }
+        }
+
+        public string PlatformBrieflyString
+        {
+            get
+            {
+                var currentPlatformBrieflyString = GamesCollectionEntities.GetContext().Games.Where(g => g.ID == GameID).FirstOrDefault();
+                return currentPlatformBrieflyString.PlatformBrieflyString;
+            }
+        }
+
+        public string GenreString
+        {
+            get
+            {
+                var currentGenreString = GamesCollectionEntities.GetContext().Games.Where(g => g.ID == GameID).FirstOrDefault();
+                return currentGenreString.GenreString;
+            }
+        }
+
+        public string YearOfIssueString
+        {
+            get
+            {
+                var currentYearOfIssueString = GamesCollectionEntities.GetContext().Games.Where(g => g.ID == GameID).FirstOrDefault();
+                return currentYearOfIssueString.YearOfIssueString;
+            }
+        }
+        public byte[] Image
+        {
+            get
+            {
+                var currentImage = GamesCollectionEntities.GetContext().Games.Where(g => g.ID == GameID).FirstOrDefault();
+                return currentImage.Image;
+            }
+        }
+        public string FIO
+        {
+            get
+            {
+                var selectedUser = GamesCollectionEntities.GetContext().Users.Where(u => u.ID == UserID).First();
+                var FIO = $"Пользователь: {selectedUser.Surname} {selectedUser.Name[0]}. {selectedUser.Patronymic[0]}.";
+                return FIO;
+            }
+        }
         public int ID { get; set; }
         public int UserID { get; set; }
         public int GameID { get; set; }

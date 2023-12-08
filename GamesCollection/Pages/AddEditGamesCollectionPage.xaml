@@ -28,7 +28,7 @@
         <TextBlock Text="Рейтинг:" FontSize="20" Grid.Row="2" VerticalAlignment="Center" Margin="5"></TextBlock>
         <TextBox Text="{Binding Rating}" FontSize="20" Grid.Row="2" Grid.Column="1" Height="40" Margin="5"></TextBox>
         <TextBlock Text="Описание:" FontSize="20" Grid.Row="3" VerticalAlignment="Center" Margin="5"></TextBlock>
-        <TextBox Text="{Binding Description}" TextWrapping="Wrap" Height="auto" FontSize="20" Grid.Row="3" Grid.Column="1" Margin="5"></TextBox>
+        <TextBox Text="{Binding Description}" TextWrapping="Wrap" Height="auto" FontSize="14" Grid.Row="3" Grid.Column="1" Margin="5"></TextBox>
         <TextBlock Text="Изображение:" FontSize="20" Grid.Row="4" VerticalAlignment="Center"></TextBlock>
         <Image HorizontalAlignment="Left" Margin="5" Grid.Column="1" Grid.Row="4" Width="200" MouseLeftButtonDown="Image_MouseLeftButtonDown" Name="imageService">
             <Image.Source>

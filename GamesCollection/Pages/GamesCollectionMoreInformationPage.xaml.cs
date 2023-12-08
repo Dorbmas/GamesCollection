@@ -23,6 +23,7 @@ namespace GamesCollection.Pages
     public partial class GamesCollectionMoreInformationPage : Page
     {
         Games _currentGame = new Games();
+        UsersGames _currentUsersGames = new UsersGames();
         int selectedRoleID1;
         int selectedID1;
         public GamesCollectionMoreInformationPage(Games selectedGame, int selectedRoleID, int selectedID)
@@ -34,6 +35,11 @@ namespace GamesCollection.Pages
 
             if (selectedRoleID1 != 1)
                 btnEdit.Visibility = Visibility.Hidden;
+
+            if (selectedRoleID1 == 1)
+            {
+                btnFavorites.Visibility = Visibility.Hidden;
+            }
 
             if (selectedGame != null)
                 _currentGame = selectedGame;
@@ -51,14 +57,41 @@ namespace GamesCollection.Pages
         {
             if (Visibility == Visibility.Visible)
             {
-                GamesCollectionEntities.GetContext().ChangeTracker.Entries().ToList().ForEach(p => p.Reload());
-                
+                GamesCollectionEntities.GetContext().ChangeTracker.Entries().ToList().ForEach(p => p.Reload());                
             }
         }
 
         private void btnFavorites_Click(object sender, RoutedEventArgs e)
         {
-            Manager.MainFrame.Navigate(new FavoriteGamesPage(selectedID1));
+            if(selectedRoleID1 != 1 && selectedRoleID1 != 2)
+            {
+                MessageBox.Show("Чтобы добавить игру в избранное, нужно зарегестрироваться!");
+            }
+            else
+            {                
+                _currentUsersGames.UserID = selectedID1;
+                _currentUsersGames.GameID = _currentGame.ID;
+                var games = AppConnect.model0db.UsersGames.Where(ug => ug.GameID == _currentGame.ID && ug.UserID == selectedID1).ToList();
+                if (games.Count > 0)
+                {
+                    MessageBox.Show("Игра уже добавлена!");
+                }
+                else
+                {
+                    if (_currentUsersGames.ID == 0)
+                        GamesCollectionEntities.GetContext().UsersGames.Add(_currentUsersGames);
+
+                    try
+                    {
+                        GamesCollectionEntities.GetContext().SaveChanges();
+                        MessageBox.Show("Игра добавлена");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message.ToString());
+                    }
+                }               
+            }
         }
     }
 }

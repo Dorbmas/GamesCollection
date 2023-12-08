@@ -26,8 +26,7 @@ namespace GamesCollection.Pages
         int selectedId1;
         public GamesCollectionPage(int selectedRoleID, int selectedId)
         {
-            InitializeComponent();
-            UpdateGames();
+            InitializeComponent();          
             cbSorting.SelectedIndex = 0;
             selectedRoleID1 = selectedRoleID;
             selectedId1 = selectedId;
@@ -36,6 +35,7 @@ namespace GamesCollection.Pages
                 btnAdd.Visibility = Visibility.Visible;
                 btnDelete.Visibility = Visibility.Visible;
             }
+            UpdateGames();
         }
 
         private void UpdateGames()

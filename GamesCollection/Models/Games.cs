@@ -24,7 +24,7 @@ namespace GamesCollection.Models
             this.GamesPublishers = new HashSet<GamesPublishers>();
             this.UsersGames = new HashSet<UsersGames>();
         }
-    
+
         public int ID { get; set; }
         public string Title { get; set; }
         public int YearOfIssue { get; set; }
@@ -43,7 +43,7 @@ namespace GamesCollection.Models
             {
                 var ratingString = $"Рейтинг: {Rating}";
                 return ratingString;
-            }          
+            }
         }
         public string Description { get; set; }
         public byte[] Image { get; set; }
@@ -55,7 +55,7 @@ namespace GamesCollection.Models
                 var gamesPlatforms = GamesCollectionEntities.GetContext().GamesPlatforms.ToList().Where(p => p.GameID == ID).ToList();
                 var platforms = GamesCollectionEntities.GetContext().Platforms.ToList();
                 int counter = 0;
-                foreach ( var platform in gamesPlatforms)
+                foreach (var platform in gamesPlatforms)
                 {
                     var currentPlatform = platforms.Where(m => m.ID == platform.PlatformID).First();
                     if (counter == 2)
@@ -93,7 +93,7 @@ namespace GamesCollection.Models
                 foreach (var platform in gamesPlatforms)
                 {
                     var currentPlatform = platforms.Where(m => m.ID == platform.PlatformID).First();
-                    
+
                     if (platromsList != "")
                     {
                         platromsList += ", ";

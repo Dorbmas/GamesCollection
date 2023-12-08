@@ -31,7 +31,6 @@ namespace GamesCollection.Pages
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {           
-            string txtLogin = txbLogin.Text;
             var currentUser = GamesCollectionEntities.GetContext().Users.Where(x => x.Login == txbLogin.Text).ToList();
             if (currentUser.Count > 0)
             {

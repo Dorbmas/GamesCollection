@@ -1,4 +1,4 @@
-﻿// Создание кода T4 для модели "C:\Users\10200282\Source\Repos\GamesCollection\GamesCollection\Models\GamesCollectionModel.edmx" включено. 
+﻿// Создание кода T4 для модели "C:\Users\10200282\Downloads\GamesCollection\GamesCollection\Models\GamesCollectionModel.edmx" включено. 
 // Чтобы включить формирование кода прежних версий, измените значение свойства "Стратегия создания кода" конструктора
 // на "Legacy ObjectContext". Это свойство доступно в окне "Свойства", если модель
 // открыта в конструкторе.

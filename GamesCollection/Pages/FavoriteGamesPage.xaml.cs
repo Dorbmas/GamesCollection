@@ -22,22 +22,64 @@ namespace GamesCollection.Pages
     /// </summary>
     public partial class FavoriteGamesPage : Page
     {
-        Games usersGames = new Games();
         int selectedID1;
-        public FavoriteGamesPage(int selectedID)
+        int selectedRoleID1;
+        public FavoriteGamesPage(int selectedID, int selectedRoleID)
         {
             InitializeComponent();
             selectedID1 = selectedID;
+            selectedRoleID1 = selectedRoleID;    
+
             UpdateFavoriteGames();
         }
 
         private void UpdateFavoriteGames()
         {
-            var currentUsers = GamesCollectionEntities.GetContext().UsersGames.Where(x => x.UserID == selectedID1).ToList();
+            var currentGames = GamesCollectionEntities.GetContext().UsersGames.ToList();
 
-            var currentFavoriteGames = GamesCollectionEntities.GetContext().Games.ToList();
-            
-            GamesCollectionListView.ItemsSource = currentFavoriteGames;
+            if (selectedRoleID1 != 1)
+            {
+                currentGames = currentGames.Where(x => x.UserID == selectedID1).ToList();
+            }
+            else
+            {
+                currentGames = currentGames.ToList();             
+            }
+          
+            GamesCollectionListView.ItemsSource = currentGames;
+        }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            var gamesForRemoving = GamesCollectionListView.SelectedItems.Cast<UsersGames>().ToList();
+
+            if (MessageBox.Show($"Вы точно хотите удалить {gamesForRemoving.Count()} элементов?", "Внимание",
+                MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    GamesCollectionEntities.GetContext().UsersGames.RemoveRange(gamesForRemoving);
+                    GamesCollectionEntities.GetContext().SaveChanges();
+                    MessageBox.Show("Данные удалены!");
+
+                    var currentGames = GamesCollectionEntities.GetContext().UsersGames.ToList();
+
+                    if (selectedRoleID1 != 1)
+                    {
+                        currentGames = currentGames.Where(x => x.UserID == selectedID1).ToList();
+                    }
+                    else
+                    {
+                        currentGames = currentGames.ToList();
+                    }
+
+                    GamesCollectionListView.ItemsSource = currentGames;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message.ToString());
+                }
+            }
         }
     }
 }
