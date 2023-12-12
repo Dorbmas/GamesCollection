@@ -62,7 +62,7 @@ namespace GamesCollection.Pages
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            Manager.MainFrame.Navigate(new AddEditGamesCollectionPage(null));
+            Manager.MainFrame.Navigate(new AddEditGamesCollectionPage(null, 1));
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
