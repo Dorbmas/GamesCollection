@@ -11,7 +11,8 @@ namespace GamesCollection.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Linq;
+
     public partial class Platforms
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,7 +22,7 @@ namespace GamesCollection.Models
         }
     
         public int ID { get; set; }
-        public string Platform { get; set; }
+        public string Platform { get; set; }     
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GamesPlatforms> GamesPlatforms { get; set; }

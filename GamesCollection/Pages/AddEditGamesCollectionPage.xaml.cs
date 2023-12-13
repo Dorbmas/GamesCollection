@@ -39,38 +39,15 @@ namespace GamesCollection.Pages
             UpdateGame();
         }
 
-        public AddEditGamesCollectionPage(GamesPlatforms selectedGamePlatform, int a)
-        {
-            InitializeComponent();
-
-            if (selectedGamePlatform != null)
-                _currentGamePlatform = selectedGamePlatform;
-
-            DataContext = _currentGamePlatform;
-
-            _currentGamePlatform.ID = selectedGamePlatform.ID;
-
-            UpdateGame();
-        }
-
         private void UpdateGame()
         {
             var gamesPlatforms = GamesCollectionEntities.GetContext().GamesPlatforms.Where(p => p.GameID == _currentGame.ID).ToList();
-            lbPlatform.ItemsSource = GamesCollectionEntities.GetContext().Platforms.ToList();
             foreach (var platform in gamesPlatforms)
             {              
                 if (platform.PlatformID == 1)
-                {
-                    cbMac.IsChecked = true;
-                    
-                }
-                    
+                    cbMac.IsChecked = true;                    
                 if (platform.PlatformID == 2)
-                {
-                    cbPC.IsChecked = true;
-                    //lbPlatform.SelectedItem = Brushes.LightBlue;
-                }
-                    
+                    cbPC.IsChecked = true;                
                 if (platform.PlatformID == 3)
                     cbPS3.IsChecked = true;
                 if (platform.PlatformID == 4)
@@ -90,19 +67,182 @@ namespace GamesCollection.Pages
             if (_currentGame.YearOfIssue < 1958)
                 errors.AppendLine("Введите корректно год выхода!");
             if (_currentGame.Rating < 0 || _currentGame.Rating > 10)
-                errors.AppendLine("Введите корректно рейтинг");
+                errors.AppendLine("Введите корректно рейтинг!");
 
             if (cbMac.IsChecked == true)
             {
                 _currentGamePlatform.GameID = _currentGame.ID;
                 _currentGamePlatform.PlatformID = 1;
+                var games = AppConnect.model0db.GamesPlatforms.Where(ug => ug.GameID == _currentGame.ID && ug.PlatformID == 1).ToList();
+                if (games.Count > 0)
+                {
+                }
+                else
+                {
+                    if (_currentGamePlatform.ID == 0)
+                        GamesCollectionEntities.GetContext().GamesPlatforms.Add(_currentGamePlatform);
+                }
             }
             else
             {
-                var removeGamesPlatform = GamesCollectionEntities.GetContext().GamesPlatforms.Where(i => i.GameID == _currentGame.ID && i.PlatformID == 1);
-                GamesCollectionEntities.GetContext().GamesPlatforms.RemoveRange(removeGamesPlatform);
+                var games = AppConnect.model0db.GamesPlatforms.Where(ug => ug.GameID == _currentGame.ID && ug.PlatformID == 1).ToList();
+                if (games.Count > 0)
+                {
+                    var removeGamesPlatform = GamesCollectionEntities.GetContext().GamesPlatforms.Where(i => i.GameID == _currentGame.ID && i.PlatformID == 1).First();
+                    _currentGamePlatform = removeGamesPlatform;
+                    GamesCollectionEntities.GetContext().GamesPlatforms.Remove(_currentGamePlatform);
+                }
+                else
+                {
+
+                }
             }
 
+            if (cbPC.IsChecked == true)
+            {
+                _currentGamePlatform.GameID = _currentGame.ID;
+                _currentGamePlatform.PlatformID = 2;
+                var games = AppConnect.model0db.GamesPlatforms.Where(ug => ug.GameID == _currentGame.ID && ug.PlatformID == 2).ToList();
+                if (games.Count > 0)
+                {
+                }
+                else
+                {
+                    if (_currentGamePlatform.ID == 0)
+                        GamesCollectionEntities.GetContext().GamesPlatforms.Add(_currentGamePlatform);
+                }
+            }
+            else
+            {
+                var games = AppConnect.model0db.GamesPlatforms.Where(ug => ug.GameID == _currentGame.ID && ug.PlatformID == 2).ToList();
+                if (games.Count > 0)
+                {
+                    var removeGamesPlatform = GamesCollectionEntities.GetContext().GamesPlatforms.Where(i => i.GameID == _currentGame.ID && i.PlatformID == 2).First();
+                    _currentGamePlatform = removeGamesPlatform;
+                    GamesCollectionEntities.GetContext().GamesPlatforms.Remove(_currentGamePlatform);
+                }
+                else
+                {
+
+                }
+            }
+
+            if (cbPS3.IsChecked == true)
+            {
+                _currentGamePlatform.GameID = _currentGame.ID;
+                _currentGamePlatform.PlatformID = 3;
+                var games = AppConnect.model0db.GamesPlatforms.Where(ug => ug.GameID == _currentGame.ID && ug.PlatformID == 3).ToList();
+                if (games.Count > 0)
+                {
+                }
+                else
+                {
+                    if (_currentGamePlatform.ID == 0)
+                        GamesCollectionEntities.GetContext().GamesPlatforms.Add(_currentGamePlatform);
+                }
+            }
+            else
+            {
+                var games = AppConnect.model0db.GamesPlatforms.Where(ug => ug.GameID == _currentGame.ID && ug.PlatformID == 3).ToList();
+                if (games.Count > 0)
+                {
+                    var removeGamesPlatform = GamesCollectionEntities.GetContext().GamesPlatforms.Where(i => i.GameID == _currentGame.ID && i.PlatformID == 3).First();
+                    _currentGamePlatform = removeGamesPlatform;
+                    GamesCollectionEntities.GetContext().GamesPlatforms.Remove(_currentGamePlatform);
+                }
+                else
+                {
+
+                }
+            }
+
+            if (cbPS4.IsChecked == true)
+            {
+                _currentGamePlatform.GameID = _currentGame.ID;
+                _currentGamePlatform.PlatformID = 4;
+                var games = AppConnect.model0db.GamesPlatforms.Where(ug => ug.GameID == _currentGame.ID && ug.PlatformID == 4).ToList();
+                if (games.Count > 0)
+                {
+                }
+                else
+                {
+                    if (_currentGamePlatform.ID == 0)
+                        GamesCollectionEntities.GetContext().GamesPlatforms.Add(_currentGamePlatform);
+                }
+            }
+            else
+            {
+                var games = AppConnect.model0db.GamesPlatforms.Where(ug => ug.GameID == _currentGame.ID && ug.PlatformID == 4).ToList();
+                if (games.Count > 0)
+                {
+                    var removeGamesPlatform = GamesCollectionEntities.GetContext().GamesPlatforms.Where(i => i.GameID == _currentGame.ID && i.PlatformID == 4).First();
+                    _currentGamePlatform = removeGamesPlatform;
+                    GamesCollectionEntities.GetContext().GamesPlatforms.Remove(_currentGamePlatform);
+                }
+                else
+                {
+
+                }
+
+            }
+
+            if (cbXboxOne.IsChecked == true)
+            {
+                _currentGamePlatform.GameID = _currentGame.ID;
+                _currentGamePlatform.PlatformID = 5;
+                var games = AppConnect.model0db.GamesPlatforms.Where(ug => ug.GameID == _currentGame.ID && ug.PlatformID == 5).ToList();
+                if (games.Count > 0)
+                {
+                }
+                else
+                {
+                    if (_currentGamePlatform.ID == 0)
+                        GamesCollectionEntities.GetContext().GamesPlatforms.Add(_currentGamePlatform);
+                }
+            }
+            else
+            {
+                var games = AppConnect.model0db.GamesPlatforms.Where(ug => ug.GameID == _currentGame.ID && ug.PlatformID == 5).ToList();
+                if (games.Count > 0)
+                {
+                    var removeGamesPlatform = GamesCollectionEntities.GetContext().GamesPlatforms.Where(i => i.GameID == _currentGame.ID && i.PlatformID == 5).First();
+                    _currentGamePlatform = removeGamesPlatform;
+                    GamesCollectionEntities.GetContext().GamesPlatforms.Remove(_currentGamePlatform);
+                }
+                else
+                {
+
+                }
+            }
+
+            if (cbXbox360.IsChecked == true)
+            {
+                _currentGamePlatform.GameID = _currentGame.ID;
+                _currentGamePlatform.PlatformID = 6;
+                var games = AppConnect.model0db.GamesPlatforms.Where(ug => ug.GameID == _currentGame.ID && ug.PlatformID == 6).ToList();
+                if (games.Count > 0)
+                {
+                }
+                else
+                {
+                    if (_currentGamePlatform.ID == 0)
+                        GamesCollectionEntities.GetContext().GamesPlatforms.Add(_currentGamePlatform);
+                }
+            }
+            else
+            {
+                var games = AppConnect.model0db.GamesPlatforms.Where(ug => ug.GameID == _currentGame.ID && ug.PlatformID == 6).ToList();
+                if (games.Count > 0)
+                {
+                    var removeGamesPlatform = GamesCollectionEntities.GetContext().GamesPlatforms.Where(i => i.GameID == _currentGame.ID && i.PlatformID == 6).First();
+                    _currentGamePlatform = removeGamesPlatform;
+                    GamesCollectionEntities.GetContext().GamesPlatforms.Remove(_currentGamePlatform);
+                }
+                else
+                {
+
+                }
+            }
 
             if (errors.Length > 0)
             {
@@ -111,12 +251,7 @@ namespace GamesCollection.Pages
             }
 
             if (_currentGame.ID == 0)
-                GamesCollectionEntities.GetContext().Games.Add(_currentGame);
-
-            if (_currentGamePlatform.ID == 0)
-                GamesCollectionEntities.GetContext().GamesPlatforms.Add(_currentGamePlatform);
-
-            
+                GamesCollectionEntities.GetContext().Games.Add(_currentGame);           
 
             try
             {

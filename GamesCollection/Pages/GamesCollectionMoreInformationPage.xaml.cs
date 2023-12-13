@@ -65,7 +65,7 @@ namespace GamesCollection.Pages
         {
             if(selectedRoleID1 != 1 && selectedRoleID1 != 2)
             {
-                MessageBox.Show("Чтобы добавить игру в избранное, нужно зарегестрироваться!");
+                MessageBox.Show("Чтобы добавить игру в избранное, нужно зарегистрироваться!");
             }
             else
             {                
