@@ -42,32 +42,41 @@ namespace GamesCollection.Pages
 
             try
             {              
-                var user0bj = AppConnect.model0db.Users.FirstOrDefault(x => x.Login == txbLogin.Text && x.Password == psbPassword.Password);                         
+                var user0bj = AppConnect.model0db.Users.FirstOrDefault(x => x.Login == txbLogin.Text && x.Password == psbPassword.Password);  
                 
-                if (user0bj == null)
+                if (txbLogin.Text.Length < 5 || psbPassword.Password.Length < 5)
                 {
-                    MessageBox.Show("Такого пользователя нет!", "Ошибка при авторизации!",
-                        MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Количетсво символов в логине и пароле должно быть больше 5!");
                 }
                 else
                 {
-                    switch (user0bj.RoleID)
+                    if (user0bj == null)
                     {
-                        case 1: MessageBox.Show("Здравствуйте, Администратор " + user0bj.Name + "!",
-                            "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);            
-                            mainWindow.Show();
-                            Window.GetWindow(this).Close();
-                            break;
-                        case 2:
-                            MessageBox.Show("Здравствуйте, Пользователь " + user0bj.Name + "!",
-                            "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
-                            mainWindow.Show();
-                            Window.GetWindow(this).Close();
-                            break;
-                        default: MessageBox.Show("Данные не обнаружены!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Warning);
-                            break;
+                        MessageBox.Show("Такого пользователя нет!", "Ошибка при авторизации!",
+                            MessageBoxButton.OK, MessageBoxImage.Error);
                     }
-                }
+                    else
+                    {
+                        switch (user0bj.RoleID)
+                        {
+                            case 1:
+                                MessageBox.Show("Здравствуйте, Администратор " + user0bj.Name + "!",
+                                "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                                mainWindow.Show();
+                                Window.GetWindow(this).Close();
+                                break;
+                            case 2:
+                                MessageBox.Show("Здравствуйте, Пользователь " + user0bj.Name + "!",
+                                "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                                mainWindow.Show();
+                                Window.GetWindow(this).Close();
+                                break;
+                            default:
+                                MessageBox.Show("Данные не обнаружены!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Warning);
+                                break;
+                        }
+                    }
+                }              
             }
             catch (Exception ex)
             {

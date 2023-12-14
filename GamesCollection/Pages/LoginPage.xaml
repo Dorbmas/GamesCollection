@@ -15,7 +15,6 @@
             <TextBlock Text="Введите пароль:" FontSize="20" Margin="5"></TextBlock>
             <PasswordBox FontSize="20" Width="300" Margin="5" Name="psbPassword"></PasswordBox>
             <Button Name="btnLogin" Content="Войти" Height="50" Width="200" FontSize="20" Background="LightGreen" Margin="5" Click="btnLogin_Click"></Button>
-            
             <Button Name="btnGuest" Content="Войти как Гость" Height="50" Width="200" FontSize="20" Background="LightYellow" Margin="5" Click="btnGuest_Click"></Button>
         </StackPanel>
     </Grid>

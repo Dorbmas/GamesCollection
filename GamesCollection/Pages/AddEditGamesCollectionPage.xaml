@@ -44,16 +44,5 @@
             </StackPanel>
             <Button Content="Сохранить" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Center" Margin="5" Name="btnSave" Click="btnSave_Click"></Button>
         </WrapPanel>
-        <WrapPanel Orientation="Horizontal" Grid.Column="1">
-            <TextBlock Text="Платформы:" FontSize="20" Grid.Column="2" Margin="5"></TextBlock>
-            <StackPanel Orientation="Vertical">
-                <CheckBox Content="PC" VerticalAlignment="Center" FontSize="20" Name="cbPC" Margin="5"></CheckBox>
-                <CheckBox Content="Mac" VerticalAlignment="Center" FontSize="20" Name="cbMac" Margin="5"></CheckBox>
-                <CheckBox Content="PS3" VerticalAlignment="Center" FontSize="20" Name="cbPS3" Margin="5"></CheckBox>
-                <CheckBox Content="PS4" VerticalAlignment="Center" FontSize="20" Name="cbPS4" Margin="5"></CheckBox>
-                <CheckBox Content="Xbox One" VerticalAlignment="Center" FontSize="20" Name="cbXboxOne" Margin="5"></CheckBox>
-                <CheckBox Content="Xbox 360" VerticalAlignment="Center" FontSize="20" Name="cbXbox360" Margin="5"></CheckBox>
-            </StackPanel>
-        </WrapPanel>
     </Grid>
 </Page>

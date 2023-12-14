@@ -78,6 +78,7 @@
     </Compile>
     <Compile Include="Classes\AppConnect.cs" />
     <Compile Include="Classes\Manager.cs" />
+    <Compile Include="Classes\LoginPasswordChecker.cs" />
     <Compile Include="LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
